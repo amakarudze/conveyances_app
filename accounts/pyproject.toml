@@ -1,0 +1,39 @@
+[project]
+name = "accounts"
+version = "0.1.0"
+description = "An app for user management."
+authors = [
+    {name = "Anna Makarudze",email = "anna@djangogirls.org"}
+]
+license = {text = "MIT"}
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "django (==5.2)",
+    "djangorestframework (==3.16.1)",
+    "djangorestframework-simplejwt (==5.5.1)",
+    "psycopg2-binary (==2.9.10)",
+    "dj-database-url (==3.0.1)",
+    "python-dotenv (==1.1.1)",
+    "django-cors-headers (==4.9.0)",
+    "gunicorn (==23.0.0)"
+]
+
+[dependency-groups]
+dev = [
+    "pytest (==8.4.2)",
+    "pytest-django (==4.11.1)",
+    "pytest-dotenv (==0.5.2)",
+    "pytest-cov (==7.0.0)",
+    "coverage (==7.10.7)",
+    "ruff (==0.14.0)",
+    "pre-commit (==4.3.0)",
+    "black (==25.9.0)",
+    "selenium (==4.36.0)",
+    "pytest-selenium (==4.1.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
