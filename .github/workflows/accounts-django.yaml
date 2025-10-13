@@ -65,6 +65,10 @@ jobs:
         working-directory: ./accounts
         run: |
           poetry run pytest --cov-branch --cov-report=xml
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: conveyances
 
       - name: Upload Accounts coverage reports to Codecov
         uses: codecov/codecov-action@v5
