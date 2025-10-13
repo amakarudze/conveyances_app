@@ -10,7 +10,12 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
+import os
+
 from pathlib import Path
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,13 +25,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-gc&36*$m!%ivs3l3i&@xf_ku51y!^%8e@-z)4)y294l_0=j6uh'
+SECRET_KEY = os.getenv('SECRET_KEY', 'heythere!')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DEBUG', False)
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 # Application definition
 
@@ -73,11 +77,25 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+MONGO_DB = os.getenv('MONGO_DB', 'conveyances')
+MONGO_HOST = os.getenv('MONGO_HOST', 'localhost')
+MONGO_PASSWORD = os.getenv('MONGO_PASSWORD', '')
+MONGO_PORT = os.getenv('MONGO_PORT', '5432')
+MONGO_USER = os.getenv('MONGO_USER', 'mongo_user')
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    "default": {
+        "ENGINE": "django_mongodb_backend",
+        "HOST": os.getenv('MONGO_HOST', 'localhost'),
+        "NAME": os.getenv('MONGO_DB', 'conveyances'),
+        "USER": os.getenv('MONGO_USER', 'mongo_user'),
+        "PASSWORD": os.getenv('MONGO_PASSWORD', 'my_password'),
+        "PORT": os.getenv('MONGO_PORT', 27017),
+        "OPTIONS": {
+            "retryWrites": "true",
+            "w": "majority",
+        },
+    },
 }
 
 
