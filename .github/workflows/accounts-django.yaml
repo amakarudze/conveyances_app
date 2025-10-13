@@ -37,11 +37,10 @@ jobs:
         with:
           poetry-version: ${{ matrix.poetry-version }}
       - name: View poetry --help
-        working-directory: /accounts
         run: poetry --help
 
       - name: Setup a local virtual environment
-        working-directory: /accounts
+        working-directory: ../accounts
         run: |
           poetry config virtualenvs.create true --local
           poetry config virtualenvs.in-project true --local
@@ -51,14 +50,14 @@ jobs:
           path: ./.venv
           key: venv-${{ hashFiles('poetry.lock') }}
       - name: Install the project dependencies
-        working-directory: /accounts
+        working-directory: ../accounts
         run: |
           poetry install
       - name: Run Migrations
-        working-directory: /accounts
+        working-directory: ../accounts
         run: |
           poetry run python manage.py migrate
       - name: Run Tests
-        working-directory: /accounts
+        working-directory: ../accounts
         run: |
           poetry run pytest 
