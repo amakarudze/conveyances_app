@@ -1,4 +1,4 @@
-name: Run Tests
+name: Run Tests for Conveyances
 on: [push, pull_request]
 jobs:
   Set-up-Django-Project:
@@ -20,6 +20,8 @@ jobs:
         mongodb-version: ['6.0', '7.0', '8.0']
 
     steps:
+      - name: Navigate into Conveyances
+        run: cd ./conveyances
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
