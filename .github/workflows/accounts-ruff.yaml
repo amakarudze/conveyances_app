@@ -1,4 +1,4 @@
-name: Ruff
+name: Ruff for Accounts app
 
 on:
   push:
@@ -18,8 +18,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+      
+    - working-directory: ./accounts
+      run: python -Im pip install --user ruff
 
-    - run: python -Im pip install --user ruff
-
-    - name: Run Ruff
+    - name: Run Ruff for Accounts
+      working-directory: ./accounts
       run: ruff check .

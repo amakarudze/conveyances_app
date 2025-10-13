@@ -50,11 +50,11 @@ jobs:
         working-directory: ./conveyances
         run: |
           poetry install
-      - name: Run Migrations
+      - name: Run Conveyances Migrations
         working-directory: ./conveyances
         run: |
           poetry run python manage.py migrate
-      - name: Run Tests
+      - name: Run Conveyances Tests
         working-directory: ./conveyances
         run: |
           poetry run pytest 

@@ -1,4 +1,4 @@
-name: Run Coverage
+name: Run Coverage for Conveyances
 on: [push, pull_request]
 jobs:
   Set-up-Django-Project:
@@ -34,9 +34,11 @@ jobs:
         with:
           poetry-version: ${{ matrix.poetry-version }}
       - name: View poetry --help
+        working-directory: ./conveyances
         run: poetry --help
 
       - name: Setup a local virtual environment
+        working-directory: ./conveyances
         run: |
           poetry config virtualenvs.create true --local
           poetry config virtualenvs.in-project true --local
@@ -46,12 +48,15 @@ jobs:
           path: ./.venv
           key: venv-${{ hashFiles('poetry.lock') }}
       - name: Install the project dependencies
+        working-directory: ./conveyances
         run: |
           poetry install
       - name: Run Migrations
+        working-directory: ./conveyances
         run: |
           poetry run python manage.py migrate
       - name: Run Tests
+        working-directory: ./conveyances
         run: |
           poetry run pytest --cov-branch --cov-report=xml
 
@@ -59,4 +64,4 @@ jobs:
         uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          slug: amakarudze/to-do
+          slug: amakarudze/conveyances_app/conveyances

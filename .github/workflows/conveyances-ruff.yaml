@@ -1,4 +1,4 @@
-name: Ruff
+name: Conveyances Ruff
 
 on:
   push:
@@ -18,8 +18,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+    
+    - working-directory: ./conveyances
+      run: python -Im pip install --user ruff
 
-    - run: python -Im pip install --user ruff
-
-    - name: Run Ruff
+    - name: Run Ruff for Conveyances
+      working-directory: ./conveyances
       run: ruff check .
