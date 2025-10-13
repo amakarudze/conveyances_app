@@ -57,6 +57,13 @@ jobs:
         working-directory: ./accounts
         run: |
           poetry run python manage.py migrate
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: conveyances
+      - name: Run Accounts Tests
+        working-directory: ./accounts
+        run: |
           poetry run pytest --cov-branch --cov-report=xml
         env:
           POSTGRES_USER: postgres
