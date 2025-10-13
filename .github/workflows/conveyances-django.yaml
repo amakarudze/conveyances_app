@@ -21,7 +21,8 @@ jobs:
 
     steps:
       - name: Navigate into Conveyances
-        run: cd ./conveyances
+        working-directory: ./conveyances
+        run: pwd
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
