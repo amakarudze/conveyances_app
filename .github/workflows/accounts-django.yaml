@@ -40,7 +40,7 @@ jobs:
         run: poetry --help
 
       - name: Setup a local virtual environment for Accounts
-        working-directory: ../accounts
+        working-directory: ./accounts
         run: |
           poetry config virtualenvs.create true --local
           poetry config virtualenvs.in-project true --local
@@ -50,11 +50,11 @@ jobs:
           path: ./.venv
           key: venv-${{ hashFiles('poetry.lock') }}
       - name: Install the project dependencies for Accounts
-        working-directory: ../accounts
+        working-directory: ./accounts
         run: |
           poetry install
       - name: Run Accounts Migrations
-        working-directory: ../accounts
+        working-directory: ./accounts
         run: |
           poetry run python manage.py migrate
         env:
@@ -62,7 +62,7 @@ jobs:
           POSTGRES_PASSWORD: postgres
           POSTGRES_DB: conveyances
       - name: Run Accounts Tests
-        working-directory: ../accounts
+        working-directory: ./accounts
         run: |
           poetry run pytest --cov-branch --cov-report=xml
 
