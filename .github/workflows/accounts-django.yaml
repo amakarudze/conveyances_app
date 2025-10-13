@@ -1,7 +1,7 @@
 name: Run Tests for Accounts
 on: [push, pull_request]
 jobs:
-  Set-up-Django-Project-for-Accounts:
+  CI-for-Accounts-Django-Project:
     runs-on : ubuntu-latest
 
     services:
