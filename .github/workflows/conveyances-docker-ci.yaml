@@ -12,7 +12,7 @@ jobs:
     steps:
       - name: Navigate into Conveyances
         working-directory: ./conveyances
-        run: pwd
+        run: ls
       - name: Checkout
         uses: actions/checkout@v4
 
