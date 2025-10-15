@@ -59,8 +59,8 @@ jobs:
         run: |
           poetry run pytest --cov-branch --cov-report=xml
 
-      - name: Upload coverage reports to Codecov
+      - name: Upload Conveyances coverage reports to Codecov
         uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          slug: amakarudze/conveyances_app/conveyances
+          slug: amakarudze/conveyances_app
