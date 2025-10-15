@@ -1,7 +1,7 @@
-name: Run Tests
+name: Run Tests for Accounts
 on: [push, pull_request]
 jobs:
-  Set-up-Django-Project:
+  CI-for-Accounts-Django-Project:
     runs-on : ubuntu-latest
 
     services:
@@ -39,7 +39,8 @@ jobs:
       - name: View poetry --help
         run: poetry --help
 
-      - name: Setup a local virtual environment
+      - name: Setup a local virtual environment for Accounts
+        working-directory: ./accounts
         run: |
           poetry config virtualenvs.create true --local
           poetry config virtualenvs.in-project true --local
@@ -48,12 +49,29 @@ jobs:
         with:
           path: ./.venv
           key: venv-${{ hashFiles('poetry.lock') }}
-      - name: Install the project dependencies
+      - name: Install the project dependencies for Accounts
+        working-directory: ./accounts
         run: |
           poetry install
-      - name: Run Migrations
+      - name: Run Accounts Migrations and Tests
+        working-directory: ./accounts
         run: |
           poetry run python manage.py migrate
-      - name: Run Tests
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: conveyances
+      - name: Run Accounts Tests
+        working-directory: ./accounts
         run: |
-          poetry run pytest 
+          poetry run pytest --cov-branch --cov-report=xml
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: conveyances
+
+      - name: Upload Accounts coverage reports to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          slug: amakarudze/conveyances_app/accounts
